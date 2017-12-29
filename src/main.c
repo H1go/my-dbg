@@ -6,6 +6,7 @@
 #include <readline/readline.h>
 
 #include "commands.h"
+#include "debug.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,9 @@ int main(int argc, char *argv[])
     }
 
     printf("Program being debugged is %s\n", argv[1]);
+    if (!launch_debug(argv))
+        return 1;
+
     while (1) {
         char *cmd = readline("dbg> ");
         if (!strcmp(cmd, "quit")) {
