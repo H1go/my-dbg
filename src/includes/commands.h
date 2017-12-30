@@ -1,6 +1,8 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+int info_memory(void *arg);
+
 int info_regs(void *arg);
 
 int continue_execution(void *arg);

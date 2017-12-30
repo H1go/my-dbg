@@ -13,6 +13,7 @@ static struct command {
     const char *usage;
     int (*callback)(void*);
 } command[] = {
+        {"info_memory", "display memory mappings", info_memory},
         {"info_regs", "display registers", info_regs},
         {"continue", "continue program being debugged", continue_execution},
         {"quit", "exit", quit},
