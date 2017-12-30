@@ -1,0 +1,33 @@
+Basic debugger:
+    [X] Prompt
+    []  History
+    [X] info_regs
+    [X] info_memory
+    []  Breakpoints
+    []  Continue
+    []  Single step
+    []  Read memory
+    []  Backtrace
+    []  Temporary Breakpoints
+    []  Next Instruction
+
+Features:
+    []  Attach process
+    []  Breakpoints functions
+    []  Breakpoints syscalls
+    []  List of breakpoints
+    []  Delete a breakpoint
+    []  Disassemble
+    []  Finish
+    []  List
+    []  Step line
+    []  Next source line
+    []  Break on line
+    []  Backtrace function names
+    []  Backtrace function parameters
+    []  Handling libraries
+    []  Handling 32bit binaries
+    []  Follow fork mode
+    []  Hardware breakpoints
+    []  Memory Breakpoints
+    []  Checkpoint/Restore
