@@ -1,11 +1,6 @@
 #include <err.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 
-#include "commands.h"
 #include "debug.h"
 
 int main(int argc, char *argv[])
@@ -16,16 +11,7 @@ int main(int argc, char *argv[])
     }
 
     printf("Program being debugged is %s\n", argv[1]);
-    if (!launch_debug(argv))
+    if (!debug(argv))
         return 1;
-
-    while (1) {
-        char *cmd = readline("dbg> ");
-        if (!strcmp(cmd, "quit")) {
-            free(cmd);
-            return 0;
-        }
-        dispatch_command(cmd);
-        free(cmd);
-    }
+    return 0;
 }
