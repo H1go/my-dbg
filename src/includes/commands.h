@@ -1,6 +1,10 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+int break_list(void *arg);
+
+int breakpoint(void *arg);
+
 int info_memory(void *arg);
 
 int info_regs(void *arg);
