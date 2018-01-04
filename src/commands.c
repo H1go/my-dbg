@@ -5,7 +5,6 @@
 #include "breakpoint.h"
 #include "commands.h"
 #include "debug.h"
-#include "register.h"
 
 struct g_program g_program;
 
@@ -15,54 +14,13 @@ static struct command {
     int (*callback)(void*);
 } command[] = {
         {"break_list", "Print a table of all breakpoints", break_list},
-        {"break", "Set break at 0xaddr", breakpoint},
+        {"break", "Set break at 0xaddr", breakpoint_set},
         {"info_memory", "display memory mappings", info_memory},
         {"info_regs", "display registers", info_regs},
         {"continue", "continue program being debugged", continue_execution},
         {"quit", "exit", quit},
         {"help", "display this help message", help},
 };
-
-int break_list(void *arg)
-{
-    arg = arg;
-    list_print(g_program.breakpoints);
-    return 1;
-}
-
-int breakpoint(void *arg)
-{
-    char *addr = arg;
-    if (!addr) {
-        printf("Usage: break 0xaddr\n");
-        return 0;
-    }
-    breakpoint_set_at_adress(addr);
-    return 1;
-}
-
-int info_regs(void *arg)
-{
-    arg = arg;
-    register_print();
-    return 1;
-}
-
-int continue_execution(void *arg)
-{
-    arg = arg;
-    printf("Continue execution\n");
-    if (ptrace(PTRACE_CONT, g_program.pid, 0, 0) < 0)
-        return 0;
-    return 1;
-}
-
-int quit(void *arg)
-{
-    arg = arg;
-    printf("Quit\n");
-    return 1;
-}
 
 int help(void *arg)
 {
