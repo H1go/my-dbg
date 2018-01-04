@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 project(my-dbg C)
-set(SRC src/main.c src/commands.c src/debug.c src/register.c src/info_memory.c src/breakpoint.c src/list_op.c src/list_destroy.c)
+set(SRC src/main.c src/commands.c src/debug.c src/register.c src/info_memory.c src/breakpoint.c src/list_op.c src/list_destroy.c src/sig.c src/includes/sig.h src/commands_print.c src/continue.c)
 set(CMAKE_C_FLAGS "-std=c99 -Wall -pedantic -Werror -Wextra -g")
 include_directories(src/includes)
 add_definitions(-D_XOPEN_SOURCE=500 -D_POSIX_C_SOURCE=200809)
