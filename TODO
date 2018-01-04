@@ -3,8 +3,8 @@ Basic debugger:
     []  History
     [X] info_regs
     [X] info_memory
-    []  Breakpoints
-    []  Continue
+    [X]  Breakpoints
+    [X]  Continue
     []  Single step
     []  Read memory
     []  Backtrace
