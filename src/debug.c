@@ -56,6 +56,9 @@ int debug(char *argv[])
     else
     {
         g_program.pid = pid;
+        g_program.breakpoints = list_init();
+        if (!g_program.breakpoints)
+            return 0;
         return handle_debug();
     }
 }
