@@ -37,8 +37,8 @@ enum name
 
 void register_print(void);
 
-uint64_t register_read(enum name name);
+uintptr_t register_read(enum name name);
 
-void register_write(enum name name, uint64_t value);
+void register_write(enum name name, uintptr_t value);
 
 #endif /* !REGISTER_H */

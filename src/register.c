@@ -51,7 +51,7 @@ void register_print(void)
     }
 }
 
-uint64_t register_read(enum name name)
+uintptr_t register_read(enum name name)
 {
     struct user_regs_struct regs;
     if (ptrace(PTRACE_GETREGS, g_program.pid, 0, &regs) < 0) {
@@ -68,7 +68,7 @@ uint64_t register_read(enum name name)
     return *(unsigned long long *)(ptr + (i * field_size));
 }
 
-void register_write(enum name name, uint64_t value)
+void register_write(enum name name, uintptr_t value)
 {
     struct user_regs_struct regs;
     if (ptrace(PTRACE_GETREGS, g_program.pid, 0, &regs) < 0) {
