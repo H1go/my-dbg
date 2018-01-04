@@ -18,6 +18,8 @@ void breakpoint_activate(struct breakpoint *b);
 
 void breakpoint_deactivate(struct breakpoint *b);
 
-void breakpoint_set_at_adress(char *addr);
+int breakpoint_set(void *arg);
+
+void restore_context(void);
 
 #endif /* !BREAKPOINT_H */

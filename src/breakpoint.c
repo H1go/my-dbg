@@ -6,6 +6,8 @@
 
 #include "breakpoint.h"
 #include "debug.h"
+#include "register.h"
+#include "sig.h"
 
 struct g_program g_program;
 static int g_count = 1;
@@ -48,20 +50,61 @@ void breakpoint_deactivate(struct breakpoint *b)
     assert((data & 0xFF) == 0xCC);
 
     long save = ((data & ~0xFF) | b->data);
+
+    printf("Restored data is: 0x%lx\n", save);
+
     if (ptrace(PTRACE_POKEDATA, g_program.pid, (void *)b->addr, save) < 0)
         if (errno)
             perror("");
     b->activated = 0;
 }
 
-void breakpoint_set_at_adress(char *addr)
+int breakpoint_set(void *arg)
 {
+    char *addr = arg;
+    if (!addr) {
+        printf("Usage: break 0xaddr\n");
+        return 0;
+    }
+
     struct breakpoint *b = breakpoint_init(addr);
     if (!b)
-        return;
+        return 0;
 
     printf("Set breakpoint at adress 0x%lx\n", b->addr);
     breakpoint_activate(b);
 
     list_push(g_program.breakpoints, b);
+    return 1;
+}
+
+static struct breakpoint *breakpoint_get(uintptr_t addr)
+{
+    struct node *node = g_program.breakpoints->head;
+    for (; node != NULL; node = node->next) {
+        if (node->data->addr == addr)
+            return node->data;
+    }
+    return NULL;
+}
+
+void restore_context(void)
+{
+    uintptr_t next = register_read(rip);
+
+    struct breakpoint *b = breakpoint_get(next);
+    if (!b)
+        return;
+
+    if (b->activated)
+    {
+        printf("Bp activated\n");
+        breakpoint_deactivate(b);
+        if (ptrace(PTRACE_SINGLESTEP, g_program.pid, 0, 0) < 0) {
+            perror("Single step");
+            return;
+        }
+        handle_wait();
+        breakpoint_activate(b);
+    }
 }
