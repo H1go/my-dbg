@@ -1,4 +1,6 @@
-#ifndef SIGNAL_H
-#define SIGNAL_H
+#ifndef SIG_H
+#define SIG_H
 
-#endif /* !SIGNAL_H */
+void handle_wait(void);
+
+#endif /* !SIG_H */
