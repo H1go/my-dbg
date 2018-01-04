@@ -3,13 +3,11 @@
 #include <string.h>
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <errno.h>
-
 #include <sys/ptrace.h>
-#include <sys/wait.h>
 
 #include "commands.h"
 #include "debug.h"
+#include "sig.h"
 
 struct g_program g_program;
 
@@ -25,11 +23,7 @@ int attach_program(char *argv[])
 
 int handle_debug()
 {
-    int status;
-    if (wait(&status) < 0) {
-        perror("");
-        return 0;
-    }
+    handle_wait();
 
     while (1) {
         char *cmd = readline("dbg> ");
