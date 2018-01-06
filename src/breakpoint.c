@@ -78,27 +78,10 @@ int breakpoint_set(void *arg)
     return 1;
 }
 
-static struct breakpoint *breakpoint_get(uintptr_t addr)
+void breakpoint_step(struct breakpoint *b)
 {
-    struct node *node = g_program.breakpoints->head;
-    for (; node != NULL; node = node->next) {
-        if (node->data->addr == addr)
-            return node->data;
-    }
-    return NULL;
-}
-
-void restore_context(void)
-{
-    uintptr_t next = register_read(rip);
-
-    struct breakpoint *b = breakpoint_get(next);
-    if (!b)
-        return;
-
     if (b->activated)
     {
-        printf("Bp activated\n");
         breakpoint_deactivate(b);
         if (ptrace(PTRACE_SINGLESTEP, g_program.pid, 0, 0) < 0) {
             perror("Single step");
@@ -107,4 +90,14 @@ void restore_context(void)
         handle_wait();
         breakpoint_activate(b);
     }
+}
+
+void restore_context(void)
+{
+    uintptr_t next = register_read(rip);
+
+    struct breakpoint *b = list_get(g_program.breakpoints, next);
+    if (!b)
+        return;
+    breakpoint_step(b);
 }

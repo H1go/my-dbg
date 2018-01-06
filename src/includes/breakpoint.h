@@ -20,6 +20,8 @@ void breakpoint_deactivate(struct breakpoint *b);
 
 int breakpoint_set(void *arg);
 
+void breakpoint_step(struct breakpoint *b);
+
 void restore_context(void);
 
 #endif /* !BREAKPOINT_H */
