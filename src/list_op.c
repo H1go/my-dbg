@@ -43,6 +43,16 @@ void list_push(struct list *list, struct breakpoint *data)
     list->head = n;
 }
 
+struct breakpoint *list_get(struct list *list, uintptr_t addr)
+{
+    struct node *node = list->head;
+    for (; node != NULL; node = node->next) {
+        if (node->data->addr == addr)
+            return node->data;
+    }
+    return NULL;
+}
+
 void list_print(struct list *list)
 {
     if (!list->size)

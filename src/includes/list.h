@@ -28,6 +28,8 @@ void node_destroy(struct node *node);
 
 void list_destroy(struct list *list);
 
+struct breakpoint *list_get(struct list *list, uintptr_t addr);
+
 void list_print(struct list *list);
 
 #endif /* !LIST_H */
