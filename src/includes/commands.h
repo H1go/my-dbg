@@ -1,6 +1,13 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+
+int backtrace(void *arg);
+
+int examine(void *arg);
+
+int step(void *arg);
+
 int break_list(void *arg);
 
 int breakpoint(void *arg);
