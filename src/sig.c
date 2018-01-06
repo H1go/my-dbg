@@ -12,9 +12,7 @@ struct g_program g_program;
 
 static void handle_call(siginfo_t sig)
 {
-    uint64_t next;
-    printf("YOLO\n");
-
+    uintptr_t next;
     switch (sig.si_code) {
         case SI_KERNEL:
         case TRAP_BRKPT:
