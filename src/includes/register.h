@@ -35,7 +35,7 @@ enum name
     gs_base,
 };
 
-void register_print(void);
+int register_print(void *arg);
 
 uintptr_t register_read(enum name name);
 
