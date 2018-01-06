@@ -43,12 +43,14 @@ static struct registers
         {gs, "gs"},
 };
 
-void register_print(void)
+int register_print(void *arg)
 {
+    arg = arg;
     for (size_t i = 0; i < sizeof(registers) / sizeof(struct registers); ++i) {
-        uint64_t addr = register_read(registers[i].name);
+        uintptr_t addr = register_read(registers[i].name);
         printf("%s: 0x%lx\n", registers[i].string, addr);
     }
+    return 1;
 }
 
 uintptr_t register_read(enum name name)
