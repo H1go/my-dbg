@@ -5,17 +5,17 @@ Basic debugger:
     [X] info_memory
     [X]  Breakpoints
     [X]  Continue
-    []  Single step
+    [X]  Single step
     []  Read memory
-    []  Backtrace
-    []  Temporary Breakpoints
+    [X]  Backtrace
+    [X]  Temporary Breakpoints
     []  Next Instruction
 
 Features:
     []  Attach process
     []  Breakpoints functions
     []  Breakpoints syscalls
-    []  List of breakpoints
+    [X]  List of breakpoints
     []  Delete a breakpoint
     []  Disassemble
     []  Finish
