@@ -12,12 +12,13 @@
 struct g_program g_program;
 static int g_count = 1;
 
-struct breakpoint *breakpoint_init(char *addr)
+static struct breakpoint *breakpoint_init(char *addr, enum type type)
 {
     struct breakpoint *b = malloc(sizeof (struct breakpoint));
     if (!b)
         return NULL;
     b->id = g_count++;
+    b->type = type;
     b->activated = 0;
     b->addr = strtol(addr, 0, 16);
     return b;
@@ -59,6 +60,25 @@ void breakpoint_deactivate(struct breakpoint *b)
     b->activated = 0;
 }
 
+int tbreak_set(void *arg)
+{
+    char *addr = arg;
+    if (!addr) {
+        printf("Usage: break 0xaddr\n");
+        return 0;
+    }
+
+    struct breakpoint *b = breakpoint_init(addr, TEMP);
+    if (!b)
+        return 0;
+
+    printf("Set breakpoint at adress 0x%lx\n", b->addr);
+    breakpoint_activate(b);
+
+    list_push(g_program.breakpoints, b);
+    return 1;
+}
+
 int breakpoint_set(void *arg)
 {
     char *addr = arg;
@@ -67,7 +87,7 @@ int breakpoint_set(void *arg)
         return 0;
     }
 
-    struct breakpoint *b = breakpoint_init(addr);
+    struct breakpoint *b = breakpoint_init(addr, PERM);
     if (!b)
         return 0;
 
@@ -88,7 +108,8 @@ void breakpoint_step(struct breakpoint *b)
             return;
         }
         handle_wait();
-        breakpoint_activate(b);
+        if (b->type == PERM)
+            breakpoint_activate(b);
     }
 }
 

@@ -4,19 +4,27 @@
 #include <stdint.h>
 #include <unistd.h>
 
+enum type
+{
+    PERM = 0,
+    TEMP,
+};
+
 struct breakpoint
 {
     int id;
+    enum type type;
     uintptr_t addr;
     long data;
     int activated;
-};
 
-struct breakpoint *breakpoint_init(char *addr);
+};
 
 void breakpoint_activate(struct breakpoint *b);
 
 void breakpoint_deactivate(struct breakpoint *b);
+
+int tbreak_set(void *arg);
 
 int breakpoint_set(void *arg);
 
