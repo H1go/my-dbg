@@ -16,7 +16,7 @@ Features:
     []  Breakpoints functions
     []  Breakpoints syscalls
     [X]  List of breakpoints
-    []  Delete a breakpoint
+    [X]  Delete a breakpoint
     []  Disassemble
     []  Finish
     []  List
