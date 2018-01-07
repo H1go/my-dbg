@@ -97,28 +97,3 @@ int breakpoint_set(void *arg)
     list_push(g_program.breakpoints, b);
     return 1;
 }
-
-void breakpoint_step(struct breakpoint *b)
-{
-    if (b->activated)
-    {
-        breakpoint_deactivate(b);
-        if (ptrace(PTRACE_SINGLESTEP, g_program.pid, 0, 0) < 0) {
-            perror("Single step");
-            return;
-        }
-        handle_wait();
-        if (b->type == PERM)
-            breakpoint_activate(b);
-    }
-}
-
-void restore_context(void)
-{
-    uintptr_t next = register_read(rip);
-
-    struct breakpoint *b = list_get(g_program.breakpoints, next);
-    if (!b)
-        return;
-    breakpoint_step(b);
-}

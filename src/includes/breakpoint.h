@@ -28,6 +28,10 @@ int tbreak_set(void *arg);
 
 int breakpoint_set(void *arg);
 
+int breakpoint_delete(void *arg);
+
+struct breakpoint *breakpoint_get(uintptr_t addr);
+
 void breakpoint_step(struct breakpoint *b);
 
 void restore_context(void);
