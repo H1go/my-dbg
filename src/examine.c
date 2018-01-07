@@ -31,30 +31,7 @@ static int get_arg(char *s, char *args[])
     return i == 3;
 }
 
-static void dissasemble(uint8_t *data, size_t size, uintptr_t addr)
-{
-    csh handle;
-    cs_insn *insn;
-    size_t count;
-
-    if (cs_open(CS_ARCH_X86, CS_MODE_64, &handle) != CS_ERR_OK)
-        return;
-    count = cs_disasm(handle, data, size, addr, 0, &insn);
-    if (count > 0) {
-        size_t j;
-        for (j = 0; j < count; j++) {
-            printf("0x%"PRIx64":\t%s\t\t%s\n", insn[j].address, insn[j].mnemonic,
-                    insn[j].op_str);
-        }
-
-        cs_free(insn, count);
-    } else
-        printf("ERROR: Failed to disassemble given code!\n");
-
-    cs_close(&handle);
-}
-
-static void examine_format(char c, uintptr_t data, uintptr_t addr)
+static void examine_format(char c, uintptr_t data)
 {
     switch (c) {
         case 'd':
@@ -100,7 +77,7 @@ int examine(void *arg)
         }
 
         printf("0x%lx: ", new_addr);
-        examine_format(*args[0], (uintptr_t )data, new_addr);
+        examine_format(*args[0], (uintptr_t )data);
         new_addr += 4;
     }
     return 1;
