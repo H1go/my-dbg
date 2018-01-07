@@ -1,12 +1,11 @@
 Basic debugger:
     [X] Prompt
-    []  History
     [X] info_regs
     [X] info_memory
     [X]  Breakpoints
     [X]  Continue
     [X]  Single step
-    []  Read memory
+    [/]  Read memory
     [X]  Backtrace
     [X]  Temporary Breakpoints
     []  Next Instruction
