@@ -32,7 +32,8 @@ void list_push(struct list *list, struct breakpoint *data)
     struct node *n = create_node(data);
     if(!n)
         return;
-    list->size++;
+
+    ++list->size;
     if(list->size == 1)
     {
         list->head = n;
@@ -43,14 +44,18 @@ void list_push(struct list *list, struct breakpoint *data)
     list->head = n;
 }
 
-struct breakpoint *list_get(struct list *list, uintptr_t addr)
+void list_pop(struct list *list)
 {
-    struct node *node = list->head;
-    for (; node != NULL; node = node->next) {
-        if (node->data->addr == addr)
-            return node->data;
-    }
-    return NULL;
+    if(!list || list->size == 0)
+        return;
+
+    struct node *n = list->head;
+    list->head = list->head->next;
+    --list->size;
+
+    if(list->size == 0)
+        list->tail = NULL;
+    free(n);
 }
 
 void list_print(struct list *list)
