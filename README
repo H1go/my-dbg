@@ -1,0 +1,52 @@
+********************* DBG -- README ********************
+
+The goal of this project was to produce a debugger similar
+to gdb in order to debug C programs.
+
+
+I/ How to launch my-dgb
+
+The build system I used is CMake. Here are the steps to
+follow to launch my-dbg:
+    
+    * Create a directory and change to that directory
+    * Run command "cmake .."
+    * Run "make"
+    * Run "./my-dbg"
+
+II/ What my-dbg supports
+
+I was able to create a simple debugger that can trace a C program
+and perform various operations on it. Unfortunately it is not
+a high level debugger but this is a list of what my-dbg supports:
+
+    * Reading and writing to registers
+    * Getting memory info on process
+    * Breakpoints on adresses
+    * Continue of execution
+    * Single step for assembly instruction
+    * Reading memory with d and x format
+    * Backtrace
+    * Temporary breakpoints
+    * Delete of breakpoints
+    * List of breakpoints
+
+
+III/ How to use my-dbg
+
+You have to work with the adresses in your program.
+To identify them use "objdump -d your_program"
+It will disassemble your executable and output
+useful information.
+
+IV/ Feedback
+
+What I enjoyed about this project is that there was
+different kind of commands/features that we could choose
+to work on and improve.
+However, I could not work on everyone of them but I
+would gladly improve my-dbg durng my free time.
+
+V/ Credits
+ Hugo LINSENMAIER
+ EPITA student
