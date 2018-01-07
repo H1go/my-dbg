@@ -27,6 +27,7 @@ int handle_debug()
 
     while (1) {
         char *cmd = readline("dbg> ");
+        add_history(cmd);
         dispatch_command(cmd);
         free(cmd);
     }
