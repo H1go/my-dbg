@@ -12,7 +12,9 @@ follow to launch my-dbg:
     * Create a directory and change to that directory
     * Run command "cmake .."
     * Run "make"
-    * Run "./my-dbg"
+    * Run "./my-dbg your_program"
+
+I added c files in the test directory as a start.
 
 II/ What my-dbg supports
 
