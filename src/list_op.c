@@ -55,10 +55,12 @@ struct breakpoint *list_get(struct list *list, uintptr_t addr)
 
 void list_print(struct list *list)
 {
+    char *types[3] = {"PERMANENT", "TEMPORARY", NULL};
     if (!list->size)
         return;
 
     struct node *node = list->head;
     for (; node != NULL ; node = node->next)
-        printf("Breakpoint %d adress: 0x%lx\n", node->data->id, node->data->addr);
+        printf("Breakpoint %d adress: 0x%lx type: %s\n", node->data->id,
+               node->data->addr, types[node->data->type]);
 }
