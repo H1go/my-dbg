@@ -27,13 +27,10 @@ int handle_debug()
 
     while (1) {
         char *cmd = readline("dbg> ");
-        if (!strcmp(cmd, "quit")) {
-            free(cmd);
-            return 1;
-        }
         dispatch_command(cmd);
         free(cmd);
     }
+    return 1;
 }
 
 int debug(char *argv[])
