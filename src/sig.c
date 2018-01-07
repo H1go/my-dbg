@@ -2,11 +2,9 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <stdio.h>
-#include <bits/types/siginfo_t.h>
 
 #include "debug.h"
 #include "register.h"
-#include "sig.h"
 
 struct g_program g_program;
 
@@ -28,16 +26,12 @@ static void handle_call(siginfo_t sig)
 void handle_wait(void)
 {
     int status;
-    if (waitpid(g_program.pid, &status, 0) < 0) {
-        perror("");
+    if (waitpid(g_program.pid, &status, 0) < 0)
         return;
-    }
 
     siginfo_t sig;
-    if (ptrace(PTRACE_GETSIGINFO, g_program.pid, 0, &sig) < 0) {
-        perror("");
+    if (ptrace(PTRACE_GETSIGINFO, g_program.pid, 0, &sig) < 0)
         return;
-    }
 
     switch (sig.si_signo) {
         case SIGTRAP:
