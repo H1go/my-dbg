@@ -17,7 +17,8 @@ static struct command {
         {"backtrace", "Print call trace at current rip", backtrace},
         {"examine", "Read into the debugged program memory", examine},
         {"step_instr", "Allow to single step into your program", step},
-        {"break_list", "Print a table of all brea400615kpoints", break_list},
+        {"break_del", "Delete breakpoint matching given ID", breakpoint_delete},
+        {"break_list", "Print a table of all breakpoints", break_list},
         {"tbreak", "Set temporary break at 0xaddr", tbreak_set},
         {"break", "Set break at 0xaddr", breakpoint_set},
         {"info_memory", "display memory mappings", info_memory},
@@ -45,6 +46,7 @@ int break_list(void *arg)
 int quit(void *arg)
 {
     arg = arg;
+    list_destroy(g_program.breakpoints);
     exit(0);
     return 1;
 }
