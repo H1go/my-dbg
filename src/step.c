@@ -10,7 +10,7 @@ int step(void *arg)
 {
     arg = arg;
     uintptr_t next = register_read(rip);
-    struct breakpoint *b = list_get(g_program.breakpoints, next);
+    struct breakpoint *b = breakpoint_get(next);
 
     if (b)
         breakpoint_step(b);
